@@ -1,86 +1,141 @@
-# 📚 MangaReader
+# 📖 MangaReader — Mobile Manga Companion
 
-A lightweight, feature-rich mobile manga reader built with **React Native** and **Expo**. **MangaReader** allows users to discover, search, read, and download manga directly on their mobile device using the MangaDex and AniList APIs.
-
----
-
-## ✨ Features
-
-- 🔍 **Browse & Search**: Discover popular, recently updated, or trending manga, or search by title and tags.
-- 📖 **Flexible Reader**: Switch seamlessly between **Scroll (Vertical)** and **Paged** reader modes.
-- 💾 **Offline Reading**: Download chapters to your local storage to read offline anytime.
-- 🔖 **Library & Bookmarks**: Add favorite manga to your personal library.
-- 🕒 **Reading History & Progress**: Keep track of read chapters and save your last-read position.
-- 🌐 **Multi-Language Support**: Filter chapters by supported languages (e.g., English, Spanish, Japanese).
-- 🔥 **AniList Integration**: View currently trending manga from AniList.
-- 📱 **Cross-Platform**: Built for **Android** and **iOS** using Expo.
+**MangaReader** is a modern, fast, and intuitive cross-platform mobile manga reader app built with **React Native** and **Expo**. Designed with manga enthusiasts in mind, it provides a seamless reading experience complete with live search, community trending feeds, personalized libraries, offline downloads, and customizable reading modes.
 
 ---
 
-## 🛠️ Tech Stack
+## 🌟 About The Project
 
-- **Framework**: [React Native](https://reactnative.dev/) with [Expo](https://expo.dev/) (SDK 57)
-- **State & Storage**: `@react-native-async-storage/async-storage`, `expo-file-system`
-- **Icons**: `@expo/vector-icons`
-- **APIs**:
-  - [MangaDex API](https://api.mangadex.org/)
-  - [AniList GraphQL API](https://graphql.anilist.co/)
+MangaReader was created to solve common pain points in mobile manga reading: slow loading times, clunky navigation, lack of offline support, and scattered reading progress tracking.
+
+By leveraging the official **MangaDex API** for content delivery and **AniList** for community trending data, MangaReader delivers a clean, ad-free, mobile-first manga application with native-like performance on both Android and iOS devices.
+
+---
+
+## 🔥 Key Features & Highlights
+
+### 🧭 1. Discover & Search
+- **Live Search**: Fast search across thousands of manga titles via MangaDex.
+- **Tag & Genre Filtering**: Filter titles by genres (Action, Romance, Sci-Fi, Fantasy, Slice of Life, and more).
+- **Sorting Options**: Sort search results by **Most Popular** or **Recently Updated**.
+- **Infinite Scrolling**: Smooth paginated feed loading more titles automatically as you scroll down.
+
+### 🔥 2. Trending Feed (AniList)
+- Integrated with the **AniList GraphQL API** to display real-time community-driven trending manga series.
+- Easily transition from trending discovery to reading chapters on MangaDex.
+
+### 📚 3. Library & Favorites
+- Bookmark your favorite manga series into your personal **Library**.
+- **New Chapter Notifications**: Visual indicators highlight series that have unread chapters published.
+
+### 📜 4. Reading History & Tracking
+- Automatically saves your reading progress for every chapter down to the **exact page number**.
+- **Resume Reading**: Instantly jump back into your last read position.
+- Dedicated **History tab** to review, resume, or clear your recent reading log.
+
+### 📖 5. Dual Reader Modes
+- **Vertical Scroll Mode (Webtoon-style)**: Continuous vertical scrolling ideal for webtoons and digital manga.
+- **Paged Mode (Book-style)**: Traditional page-turn mode with tap/swipe controls.
+- **Smart On-Screen HUD**: Toggle header/footer navigation bars with a tap for an immersive fullscreen reading experience.
+- **Chapter Switcher**: Quick navigation to next/previous chapters directly inside the reader.
+
+### 💾 6. Offline Chapter Downloads
+- Download full chapters directly to device storage using `expo-file-system`.
+- Read your downloaded manga anywhere—even without an internet or cell connection.
+- Download progress indicators and easy chapter file management.
+
+---
+
+## 📱 Screen Breakdown
+
+| Tab / Screen | Description |
+| :--- | :--- |
+| **Browse / Discover** | Main catalog search, genre filters, and popular manga lists. |
+| **Library** | Personalized bookmarks with unread chapter count indicators. |
+| **Trending** | Real-time trending manga powered by AniList. |
+| **History** | Log of recently read chapters with quick resume capabilities. |
+| **Manga Details** | Summary, cover art, author details, tag list, language selector, and chapter list. |
+| **Reader** | Fullscreen manga viewer supporting vertical scroll and paged reading modes. |
+
+---
+
+## 🏗️ Architecture & Technology Stack
+
+- **Mobile Framework**: [React Native](https://reactnative.dev/) (v0.86)
+- **Tooling & Runtime**: [Expo SDK 57](https://expo.dev/)
+- **Icons & UI**: [`@expo/vector-icons`](https://docs.expo.dev/guides/icons/) (Material Icons), Custom M3-inspired color palette
+- **Local Persistence**:
+  - [`@react-native-async-storage/async-storage`](https://react-native-async-storage.github.io/async-storage/) for settings, history, and library state.
+  - [`expo-file-system`](https://docs.expo.dev/versions/latest/sdk/filesystem/) for offline cover art and downloaded chapter pages.
+- **External Data Services**:
+  - **MangaDex REST API v5** (Manga metadata, chapter feeds, image CDN URLs)
+  - **AniList GraphQL API** (Trending manga discovery)
+
+---
+
+## 🛠️ Project Structure
+
+```text
+MangaReader/
+├── App.js                   # Application state, persistent storage hooks, & tab router
+├── app.json                 # Expo project configuration & Android package details
+├── eas.json                 # Expo Application Services build profiles
+├── package.json             # Dependencies and scripts
+└── src/
+    ├── api/
+    │   ├── anilist.js       # AniList GraphQL query fetching trending titles
+    │   └── mangadex.js      # MangaDex client (manga, chapters, page CDN URLs)
+    ├── components/
+    │   ├── MangaCard.js     # Responsive grid card component with cover art
+    │   └── PageImage.js     # Optimized image viewer component for manga pages
+    ├── screens/
+    │   ├── MainScreen.js    # Tab container (Browse, Library, Trending, History)
+    │   ├── DetailsScreen.js # Manga overview, language filter, and chapter list
+    │   └── ReaderScreen.js  # Fullscreen reader supporting Scroll and Paged modes
+    ├── files.js             # Local filesystem manager for downloaded chapters & covers
+    ├── storage.js           # Async storage persistence helper
+    └── theme.js             # Color definitions and layout theme constants
+```
 
 ---
 
 ## 🚀 Getting Started
 
-### Prerequisites
+### 1. Prerequisites
 
-- [Node.js](https://nodejs.org/) (v18 or newer)
-- [Expo Go app](https://expo.dev/go) on your iOS/Android device OR an Android Emulator / iOS Simulator.
+- [Node.js](https://nodejs.org/) (v18 or higher)
+- [Expo Go App](https://expo.dev/go) installed on your Android/iOS device **OR** an Android Emulator.
 
-### Installation
+### 2. Installation
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/reginaldgideon17/MangaReader.git
-   cd MangaReader
-   ```
+Clone the repository and install dependencies:
 
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
-
-3. **Start the development server:**
-   ```bash
-   npx expo start
-   ```
-
-4. **Run on your device/emulator:**
-   - Scan the QR code with **Expo Go** (Android) or the **Camera app** (iOS).
-   - Press `a` in the terminal to launch on an **Android Emulator**.
-   - Press `w` to open in a web browser.
-
----
-
-## 📁 Project Structure
-
-```text
-MangaReader/
-├── App.js                   # Main application logic & navigation state
-├── app.json                 # Expo configuration
-├── eas.json                 # EAS build configuration
-├── package.json             # Project dependencies and scripts
-└── src/
-    ├── api/
-    │   ├── anilist.js       # AniList GraphQL client
-    │   └── mangadex.js      # MangaDex API client
-    ├── components/          # Reusable UI components (MangaCard, PageImage)
-    ├── screens/             # Main screens (MainScreen, DetailsScreen, ReaderScreen)
-    ├── files.js             # Offline file storage & chapter download manager
-    ├── storage.js           # Async Storage wrapper for app persistence
-    └── theme.js             # App color schemes and styling constants
+```bash
+git clone https://github.com/reginaldgideon17/MangaReader.git
+cd MangaReader
+npm install
 ```
 
+### 3. Running the App
+
+Start the Expo development server:
+
+```bash
+npx expo start
+```
+
+- **On Physical Device**: Scan the QR code displayed in the terminal using the **Expo Go** app (Android) or Camera app (iOS).
+- **On Android Emulator**: Press `a` in the terminal.
+- **On Web**: Press `w` to launch the web preview.
+
 ---
 
-## 📄 License
+## 🤝 Contributing
 
-This project is open-source and available under the [MIT License](LICENSE).
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/reginaldgideon17/MangaReader/issues).
+
+---
+
+## 📝 License
+
+This project is open-source and released under the [MIT License](LICENSE).
